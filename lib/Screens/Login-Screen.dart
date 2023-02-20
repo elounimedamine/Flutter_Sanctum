@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sanctum/Providers/Auth.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,8 +18,14 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _password;
 
   void submit() {
-    log(_email!);
-    log(_password!);
+    // log(_email!);
+    // log(_password!);
+    Provider.of<Auth>(context, listen: false).login(
+      credentials: {
+        'email': _email,
+        'password': _password,
+      },
+    );
   }
 
   @override
@@ -34,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(children: [
                 TextFormField(
+                  initialValue: "aouni@gmail.com",
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     hintText: 'email@email.com',
@@ -43,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 TextFormField(
+                  initialValue: "123456",
                   decoration: const InputDecoration(
                     labelText: 'Password',
                     hintText: '123456',
@@ -55,13 +65,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        child: const Text('Login'),
-                        onPressed: () {
-                          _formKey.currentState?.save();
-                          submit();
-                        },),),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    child: const Text('Login'),
+                    onPressed: () {
+                      _formKey.currentState?.save();
+                      submit();
+                    },
+                  ),
+                ),
               ]),
             )))
         // This trailing comma makes auto-formatting nicer for build methods.

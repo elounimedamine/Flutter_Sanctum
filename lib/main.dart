@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sanctum/Providers/Auth.dart';
 import 'package:flutter_sanctum/widgets/nav-drawer.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<ChangeNotifier>(
+    create: (_) => Auth(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,8 +39,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
